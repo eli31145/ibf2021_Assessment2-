@@ -7,6 +7,9 @@ public class Book {
 
     private String key;
     private String title;
+    private String description;
+    private String exerpt;
+    private boolean isCached;
 
     public String getKey(){
         return key;
@@ -20,6 +23,31 @@ public class Book {
     }
     public void setTitle(String title){
         this.title = title;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public String getExerpt(){
+        return exerpt;
+    }
+    public void setExerpt(String exerpt){
+        this.exerpt = exerpt;
+    }
+    
+    public boolean getIsCached(){
+        return isCached;
+    }
+    public void setIsCached(boolean isCached){
+        this.isCached = isCached;
+    }
+
+    public boolean fromIsCached() {
+        return this.isCached;
     }
 
     public static Book create(JsonObject jObject){

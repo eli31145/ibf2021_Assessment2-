@@ -91,6 +91,55 @@ public class BookService {
 
         }
 
+        public Book searchSpecificBook(String key, String bookName){
+           
+            final String url = UriComponentsBuilder
+                .fromUriString(Constants.INDIVIDUAL_BOOK_API)
+                .pathSegment(bookName + ".json")
+                .toUriString();
+                
+        logger.log(Level.INFO, String.format("URL: %s", url));
+
+            RequestEntity<Void> req = RequestEntity.get(url).build();
+            RestTemplate template = new RestTemplate();
+            ResponseEntity<String> resp = template.exchange(req, String.class);
+            
+            if (resp.getStatusCode() != HttpStatus.OK)
+                throw new IllegalArgumentException(
+                    String.format("Error: Status code %s", resp.getStatusCode().toString())
+                );
+                
+                final String body = resp.getBody();
+
+        logger.log(Level.INFO, String.format("body: %s", body));
+
+            try (InputStream is = new ByteArrayInputStream(body.getBytes())){
+                JsonReader reader = Json.createReader(is);
+                JsonObject jO = reader.readObject();
+
+                //extract description, Exerpt and Cached
+                //JsonArray jA = jO.getJsonArray("docs");
+                String description = jO.getJsonObject("description").getString("value");
+                String title = jO.getString("title");
+
+                Book book = new Book();
+                //not every book has exerpts, set only if exists
+                if (jO.containsKey("exerpts")){
+                String exerpt = jO.getJsonArray("exerpts").getJsonObject(0).getString("exerpt");
+                book.setExerpt(exerpt);
+               }
+
+                book.setTitle(title);
+                book.setDescription(description);
+
+                return book;
+
+            } catch (Exception e){
+
+            }
+           return null;
+        }
+
 
         public static String convertTitle(String bookName){
             return bookName.trim().replaceAll(" ", "+");
