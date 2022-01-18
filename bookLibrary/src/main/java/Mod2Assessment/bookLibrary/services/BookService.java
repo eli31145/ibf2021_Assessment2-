@@ -2,6 +2,9 @@ package Mod2Assessment.bookLibrary.services;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -13,8 +16,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import Mod2Assessment.Constants;
 import Mod2Assessment.bookLibrary.Model.*;
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
+import jakarta.json.JsonValue;
 
 @Service
 public class BookService {
@@ -36,7 +42,7 @@ public class BookService {
                 .fromUriString(Constants.BOOK_API)
                 .queryParam("q", convertTitle(bookName))
                 //gets you title and 20 results, desc & exerpt not included
-                .queryParam("fields", "title&limit=20")
+                .queryParam("fields", "key+title&limit=20")
                 .toUriString();
 
             RequestEntity<Void> req = RequestEntity.get(url).build();
@@ -55,7 +61,21 @@ public class BookService {
                 JsonObject jO = reader.readObject();
 
                 //extract information from json object based in search result
-            }
+                JsonArray jA = jO.getJsonArray("docs");
+
+                List<Book> bookList = new LinkedList<>();
+                
+                for(JsonValue v: jA){
+                    JsonObject jObject = (JsonObject) v;
+                    //use method created to convert jO to book obj
+                    Book b = Book.create(jObject);
+                    bookList.add(b);
+                    return bookList; 
+                }
+
+            } catch (Exception e){
+
+            } return Collections.emptyList();
 
 
         }
