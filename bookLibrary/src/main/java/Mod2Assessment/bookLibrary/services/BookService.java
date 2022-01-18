@@ -22,10 +22,13 @@ import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import jakarta.json.JsonValue;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Service
 public class BookService {
     
-        
+    private static final Logger logger = Logger.getLogger(BookService.class.getName());
         private final String appId;
 
         //create constructor to set env
@@ -38,12 +41,16 @@ public class BookService {
         }
 
         public List<Book> search(String bookName){
+           
             final String url = UriComponentsBuilder
                 .fromUriString(Constants.BOOK_API)
                 .queryParam("q", convertTitle(bookName))
                 //gets you title and 20 results, desc & exerpt not included
-                .queryParam("fields", "key+title&limit=20")
+                .queryParam("fields", "key+title")
+                .queryParam("limit", "20")
                 .toUriString();
+                
+        logger.log(Level.INFO, String.format("URL: %s", url));
 
             RequestEntity<Void> req = RequestEntity.get(url).build();
             RestTemplate template = new RestTemplate();
@@ -55,7 +62,9 @@ public class BookService {
                 );
                 
                 final String body = resp.getBody();
-            
+
+        logger.log(Level.INFO, String.format("body: %s", body));
+
             try (InputStream is = new ByteArrayInputStream(body.getBytes())){
                 JsonReader reader = Json.createReader(is);
                 JsonObject jO = reader.readObject();
@@ -70,8 +79,10 @@ public class BookService {
                     //use method created to convert jO to book obj
                     Book b = Book.create(jObject);
                     bookList.add(b);
-                    return bookList; 
+                    
                 }
+
+                return bookList; 
 
             } catch (Exception e){
 

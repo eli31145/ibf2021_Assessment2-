@@ -25,16 +25,17 @@
 
             <div class="row" data-th-if="${bookName != null}">
                 <div class="col">
-                    <!-- <h2>Weather of Chosen Country</h2> -->
+                    <!-- <h2>List of Chosen Books</h2> -->
                     <ul class="list-group">
-                        <li data-th-each="b: ${book}" class="list-group-item">
+                        <li data-th-each="b: ${bookList}" class="list-group-item">
                             <!-- {book} is model added in Controller as bookList URLs-->
-                            <span data-th-text="${b}"></span>
+                            <a data-th-href="${b.key}" data-th-text="${b.title}"></a>
                         </li>
                     </ul>
                 </div>
             </div>
             <!-- add a back button -->
+            <button onclick="history.back()">Go Back</button>
         </div> 
         
     </body>

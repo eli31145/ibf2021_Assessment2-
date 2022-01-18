@@ -26,17 +26,22 @@ public class SearchController {
     public String searchBook(@RequestParam(required = true) String bookName, Model model){
 
     List<Book> bookList = Collections.emptyList();
-
-          //previous code without checking cache 
-      System.out.println("book: " + bookName);
+      
         try{
-            //getting weather
-            bookSvc.search(bookName);
+            //getting bookName
+            bookList = bookSvc.search(bookName);
         } catch (Exception e){
             e.printStackTrace();
         }
+    
+    //returns all items in the booklist
+        if (bookList.size()>0){
+            for (int i = 0; i<bookList.size(); i++)
+            bookList.get(i);
+        }
 
         model.addAttribute("bookName", bookName);
+        model.addAttribute("bookList", bookList);
 
   /*   try{bookList = bookSvc.search(bookName)
         if (bookList.size()>0
