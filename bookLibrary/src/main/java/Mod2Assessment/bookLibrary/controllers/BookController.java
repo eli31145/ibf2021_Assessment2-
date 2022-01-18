@@ -1,5 +1,6 @@
 package Mod2Assessment.bookLibrary.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,7 @@ import Mod2Assessment.bookLibrary.services.BookService;
 @RequestMapping (path = "/searchResult")
 public class BookController {
 
-    private BookService bookSvc;
+    @Autowired BookService bookSvc;
     
     @GetMapping(path ="{key}")
     public String searchSpecificBook(@PathVariable("key") String key, String bookName, Model model){

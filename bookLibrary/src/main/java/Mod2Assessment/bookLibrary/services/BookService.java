@@ -2,11 +2,12 @@ package Mod2Assessment.bookLibrary.services;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import Mod2Assessment.Constants;
 import Mod2Assessment.bookLibrary.Model.*;
+import Mod2Assessment.bookLibrary.repositories.BookRepository;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
@@ -27,6 +29,8 @@ import java.util.logging.Logger;
 
 @Service
 public class BookService {
+
+    @Autowired BookRepository bookRepo;
     
     private static final Logger logger = Logger.getLogger(BookService.class.getName());
         private final String appId;
@@ -145,4 +149,20 @@ public class BookService {
             return bookName.trim().replaceAll(" ", "+");
         }
 
+         //Redis Methods
+        public boolean hasBook(String bookName){
+            Optional<Book> opt = bookRepo.getBook(bookName);
+            return (opt.isPresent());
+        }
+        //Get List of Book obj
+        public Book getBook(String key){
+            Optional<Book> b = bookRepo.getBook(key);
+            if (b.)
+            return b;
+        }
+
+        //save book
+        public void save(String key, String value){
+            bookRepo.save(key, value);
+        }
 }

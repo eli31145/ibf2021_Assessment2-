@@ -1,6 +1,5 @@
 package Mod2Assessment.bookLibrary.Model;
 
-import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 
 public class Book {

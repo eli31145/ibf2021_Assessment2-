@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=`, initial-scale=1.0">
+        <title>Library Database</title>
+        <link rel="stylesheet" href="bootstrap.min.css">
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row mt-5 mb-3">
+                <div class="col d-flex justify-content-center">
+                    <h1>Book Information for <span data-th-text="${book.title}"></span></h1>
+                </div>
+            </div>
+
+            <p data-th-text="Description: ${book.description}"></p>
+
+            <p data-th-if="${book.excerpt != 'NOT_FOUND'}" data-th-text="Excerpt: ${book.excerpt}"></p>
+            <p data-th-if="${book.excerpt == 'NOT_FOUND'}">Excerpt: No excerpt located</p>
+            <div class="row" data-th-each="b: ${book}">
+                <!-- add caching -->
+            </div>
+            <form>
+                <input type="button" value="To Search Page" onclick="history.go(-2)">
+               </form>
+        </div>
+        
+    </body>
+</html>
