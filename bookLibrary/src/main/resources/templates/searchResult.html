@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Result</title>
+        <link rel="stylesheet" href="/bootstrap.min.css">
+    </head>
+    <body>
+
+        <div class="container">
+
+            <div class="row mt-3 mb-2">
+                <div class="col">
+                    <h1>Books Matching <span data-th-text="${bookName}"></span></h1>
+                </div>
+            </div>
+
+            <div class="row" data-th-if="${bookName == null}">
+                <div class="col">
+                    <h2 data-th-if="${bookName == null}">You did not input a title</h2>
+                </div>
+            </div>
+
+            <div class="row" data-th-if="${bookName != null}">
+                <div class="col">
+                    <!-- <h2>Weather of Chosen Country</h2> -->
+                    <ul class="list-group">
+                        <li data-th-each="b: ${book}" class="list-group-item">
+                            <!-- {book} is model added in Controller as bookList URLs-->
+                            <span data-th-text="${b}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- add a back button -->
+        </div> 
+        
+    </body>
+</html>
