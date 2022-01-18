@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Book Search</title>
+        <link rel="stylesheet" href="/bootstrap.min.css">
+    </head>
+    <body>
+
+        <div class="container"> <!-- container -->
+
+            <div class="row mt-3 mb-2">
+                <div class="col">
+                    <h1>Search Your Book</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+
+                    <form method="GET" action="/searchResult">
+                        <div class="mb-2 input-group">
+                           
+                            <input type="text" name="bookName" id="bookName" 
+                                    placeholder="Please enter your book" class="form-control">
+                                    <!-- make field search required -->
+
+                            <button type="submit" class="btn btn-warning"> 
+                                Search
+                            </button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div> <!-- container -->
+        
+    </body>
+</html>
