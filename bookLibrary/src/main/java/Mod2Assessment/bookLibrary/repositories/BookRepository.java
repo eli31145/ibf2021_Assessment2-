@@ -13,16 +13,15 @@ import Mod2Assessment.bookLibrary.Model.Book;
 @Repository
 public class BookRepository {
     @Autowired 
-    //change bean name
-        @Qualifier("TODO_REDIS")
+  
+        @Qualifier("REDIS")
         private RedisTemplate<String, String> template;
 
         public void save(String key, String value){
             template.opsForValue().set(key, value, 10, TimeUnit.MINUTES);    
         }
         
-        public Optional<Book> getBook(String bookName){
-        return Optional.ofNullable(
-             template.opsForValue().get(bookName));
+        public String getBook(String key){
+        return template.opsForValue().get(key);
         } 
 }

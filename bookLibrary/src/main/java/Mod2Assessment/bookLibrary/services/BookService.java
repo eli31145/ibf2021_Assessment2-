@@ -150,16 +150,17 @@ public class BookService {
         }
 
          //Redis Methods
-        public boolean hasBook(String bookName){
-            Optional<Book> opt = bookRepo.getBook(bookName);
+      /*   public boolean hasBook(String bookName){
+            Optional<String> opt = bookRepo.getBook(bookName);
             return (opt.isPresent());
-        }
+        } */
         //Get List of Book obj
-        public Book getBook(String key){
+        /* public Book getBook(String key){
             Optional<Book> b = bookRepo.getBook(key);
-            if (b.)
-            return b;
-        }
+            if (b.isPresent())
+            return Optional.ofNullable(
+             template.opsForValue().get(b));
+        } */
 
         //save book
         public void save(String key, String value){

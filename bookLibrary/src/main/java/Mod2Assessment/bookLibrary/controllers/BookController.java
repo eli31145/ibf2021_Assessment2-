@@ -14,7 +14,7 @@ import Mod2Assessment.bookLibrary.services.BookService;
 @RequestMapping (path = "/searchResult")
 public class BookController {
 
-    @Autowired BookService bookSvc;
+    @Autowired private BookService bookSvc;
     
     @GetMapping(path ="{key}")
     public String searchSpecificBook(@PathVariable("key") String key, String bookName, Model model){

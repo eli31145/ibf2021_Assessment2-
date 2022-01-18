@@ -27,8 +27,7 @@ public class RedisConfig {
     @Value("${spring.redis.database}")
     private int redisDatabase;
 
-    //change bean name
-    @Bean("TODO_REDIS")
+    @Bean("REDIS")
     @Scope("singleton")
     public RedisTemplate<String, String> createRedisTemplate(){
 
